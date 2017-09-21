@@ -1,5 +1,5 @@
 /*
- * Console.c
+ * Console_Tx.c
  *
  *  Created on: 19. 9. 2017
  *      Author: martisek
@@ -8,9 +8,11 @@
 #include "Console.h"
 
 /* Module variables */
-static Console ConsoleObject;
-QActive *AO_Console = &ConsoleObject.super;
+static Console_Tx ConsoleObjectTx;
+QActive *AO_ConsoleTx = &ConsoleObjectTx.super;
 
+static Console_Rx ConsoleObjectRx;
+QActive *AO_ConsoleRx = &ConsoleObjectRx.super;
 
 /*-----------------------------------------------------------------------------------------------*/
 char TextMenu_1[] = "1. Menu       	     \n";
@@ -30,67 +32,46 @@ char ErrorText[] = "\nStav Tx IDLE!!\n";
 MenuMsgItem *menuPtr = &MenuMsgItem_1;
 
 /*-----------------------------------------------------------------------------------------------*/
-void ConsoleCtor(void);
+/*< Function prototypes >*/
+void ConsoleTxCtor(void);
+void ConsoleRxCtor(void);
 
-static QState Console_init(Console *me, QEvt const *e);
-static QState Console_active(Console *me, QEvt const *e);
-static QState Console_transfer(Console *me, QEvt const *e);
-static QState Console_tx_menu(Console *me, QEvt const *e);
-static QState Console_tx_msg(Console *me, QEvt const *e);
-static QState Console_tx_idle(Console *me, QEvt const *e);
-static QState Console_receive(Console *me, QEvt const *e);
-static QState Console_rx_msg(Console *me, QEvt const *e);
-static QState Console_rx_parsing(Console *me, QEvt const *e);
-static QState Console_rx_idle(Console *me, QEvt const *e);
+/*< Static function for TX active object >*/
+static QState Console_tx_init(Console_Tx *me, QEvt const *e);
+static QState Console_transfer(Console_Tx *me, QEvt const *e);
+static QState Console_tx_menu(Console_Tx *me, QEvt const *e);
+static QState Console_tx_msg(Console_Tx *me, QEvt const *e);
+static QState Console_tx_idle(Console_Tx *me, QEvt const *e);
+static QState Console_tx_error(Console_Tx *me, QEvt const *e);
 
-void ConsoleCtor(void)
+/*< Static function for RX active object >*/
+static QState Console_rx_init(Console_Rx *me, QEvt const *e);
+static QState Console_receive(Console_Rx *me, QEvt const *e);
+static QState Console_rx_parsing(Console_Rx *me, QEvt const *e);
+static QState Console_rx_idle(Console_Rx *me, QEvt const *e);
+static QState Console_rx_error(Console_Rx *me, QEvt const *e);
+
+/*-----------------------------------------------------------------------------------------------*/
+/*																								 */
+/*< Function for Tx part (active object) >*/
+void ConsoleTxCtor(void)
 {
-	Console *me = &ConsoleObject;
-	QActive_ctor(&me->super, Q_STATE_CAST(&Console_init));
+	Console_Tx *me = &ConsoleObjectTx;
+	QActive_ctor(&me->super, Q_STATE_CAST(&Console_tx_init));
 	QTimeEvt_ctor(&me->timeEvt, CONSOLE_TMOUT);
 	//QEQueue_init(&me->deferredEvtQueue, (QEvt const**)(me->deferredEvtSto), Q_DIM(me->deferredEvtSto));
 
 	return;
 }
 
-static QState Console_init(Console *me, QEvt const *e)
+static QState Console_tx_init(Console_Tx *me, QEvt const *e)
 {
 	(void)e;
 	me->firstMenuMsgItem = &MenuMsgItem_1;
 	return Q_TRAN(&Console_transfer);
 }
 
-static QState Console_active(Console *me, QEvt const *e)
-{
-	QState state;
-
-	switch (e->sig) {
-		case Q_ENTRY_SIG: {
-			state = Q_HANDLED();
-			break;
-		}
-		case Q_EXIT_SIG: {
-			state = Q_HANDLED();
-			break;
-		}
-		case Q_INIT_SIG: {
-			state = Q_TRAN(&Console_transfer);
-			break;
-		}
-		case CONSOLE_RX_MSG: {
-			state = Q_TRAN(&Console_receive);
-			break;
-		}
-		default: {
-			state = Q_SUPER(&QHsm_top);
-			break;
-		}
-	}
-
-	return state;
-}
-
-static QState Console_transfer(Console *me, QEvt const *e)
+static QState Console_transfer(Console_Tx *me, QEvt const *e)
 {
 	QState state;
 
@@ -107,8 +88,15 @@ static QState Console_transfer(Console *me, QEvt const *e)
 			state = Q_TRAN(&Console_tx_menu);
 			break;
 		}
+		case CONSOLE_TX_MENU: {
+			state = Q_TRAN(&Console_tx_menu);
+			break;
+		}
+		case CONSOLE_TX_MSG: {
+			state = Q_TRAN(&Console_tx_msg);
+		}
 		default: {
-			state = Q_SUPER(&Console_active);
+			state = Q_SUPER(&QHsm_top);
 			break;
 		}
 	}
@@ -116,7 +104,7 @@ static QState Console_transfer(Console *me, QEvt const *e)
 	return state;
 }
 
-static QState Console_tx_idle(Console *me, QEvt const *e)
+static QState Console_tx_idle(Console_Tx *me, QEvt const *e)
 {
 	QState state;
 
@@ -130,13 +118,6 @@ static QState Console_tx_idle(Console *me, QEvt const *e)
 			state = Q_HANDLED();
 			break;
 		}
-		case CONSOLE_TX_MENU: {
-			state = Q_TRAN(&Console_tx_menu);
-			break;
-		}
-		case CONSOLE_TX_MSG: {
-			state = Q_TRAN(&Console_tx_msg);
-		}
 		default: {
 			state = Q_SUPER(&Console_transfer);
 			break;
@@ -146,7 +127,7 @@ static QState Console_tx_idle(Console *me, QEvt const *e)
 	return state;
 }
 
-static QState Console_tx_menu(Console *me, QEvt const *e)
+static QState Console_tx_menu(Console_Tx *me, QEvt const *e)
 {
 	QState state;
 	MenuMsgItem *menuItem = me->firstMenuMsgItem;
@@ -186,14 +167,41 @@ static QState Console_tx_menu(Console *me, QEvt const *e)
 	return state;
 }
 
-static QState Console_tx_msg(Console *me, QEvt const *e)
+static QState Console_tx_msg(Console_Tx *me, QEvt const *e)
 {
-	(void)e;
+	QState state;
 
-	return Q_HANDLED();
+	switch (e->sig) {
+		case Q_ENTRY_SIG: {
+			//console_state = Console_TransferWriteNonBlocking(Console_ConfigPtr, Console_Tx_HandlePtr, menuItem->MenuText, strlen(menuItem->MenuText));
+			state = Q_HANDLED();
+			break;
+		}
+		case Q_EXIT_SIG: {
+			state = Q_HANDLED();
+			break;
+		}
+		case CONSOLE_TX_DONE: {
+			state = Q_TRAN(&Console_tx_idle);
+			break;
+		}
+		default: {
+			state = Q_SUPER(&Console_transfer);
+		}
+	}
+	return state;
 }
 
-static QState Console_receive(Console *me, QEvt const *e)
+/*-----------------------------------------------------------------------------------------------*/
+/*																								 */
+/*< Functions for Rx part (active object) >*/
+static QState Console_rx_init(Console_Rx *me, QEvt const *e)
+{
+	(void)e;
+	return Q_TRAN(&Console_receive);
+}
+
+static QState Console_receive(Console_Rx *me, QEvt const *e)
 {
 	QState state;
 
@@ -206,12 +214,12 @@ static QState Console_receive(Console *me, QEvt const *e)
 			state = Q_HANDLED();
 			break;
 		}
-		case CONSOLE_RX_DONE: {
-			state = Q_HANDLED();
+		case Q_INIT_SIG: {
+			state = Q_TRAN(&Console_rx_idle);
 			break;
 		}
 		default: {
-			state = Q_SUPER(&Console_active);
+			state = Q_SUPER(&QHsm_top);
 			break;
 		}
 	}
@@ -219,20 +227,14 @@ static QState Console_receive(Console *me, QEvt const *e)
 	return state;
 }
 
-static QState Console_rx_msg(Console *me, QEvt const *e)
-{
-	(void)e;
-
-	return Q_HANDLED();
-}
-static QState Console_rx_parsing(Console *me, QEvt const *e)
+static QState Console_rx_parsing(Console_Rx *me, QEvt const *e)
 {
 	(void)e;
 
 	return Q_HANDLED();
 }
 
-static QState Console_rx_idle(Console *me, QEvt const *e)
+static QState Console_rx_idle(Console_Rx *me, QEvt const *e)
 {
 	(void)e;
 

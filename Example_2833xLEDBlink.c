@@ -158,9 +158,9 @@ void main(void)
    QF_zero();
 
    BlinkyCtor();
-   ConsoleCtor();
-   QActive_start(AO_Blinky,  2, l_blinkySto,  Q_DIM(l_blinkySto),  (void*)0, 0, (QEvt*)0);
-   QActive_start(AO_Console, 1, l_consoleSto, Q_DIM(l_consoleSto), (void*)0, 0, (QEvt*)0);
+   ConsoleTxCtor();
+   QActive_start(AO_Blinky,    2, l_blinkySto,  Q_DIM(l_blinkySto),  (void*)0, 0, (QEvt*)0);
+   QActive_start(AO_ConsoleTx, 1, l_consoleSto, Q_DIM(l_consoleSto), (void*)0, 0, (QEvt*)0);
 
    (void)QF_run();
 
@@ -189,7 +189,7 @@ void ConsoleTxDone(console_handle_tx_t *handle, void *UserData)
 	(void*)handle;
 	QEvt TxEvent = {CONSOLE_TX_DONE, 0, 0};
 
-	QActive_postFIFO(AO_Console, &TxEvent);
+	QActive_postFIFO(AO_ConsoleTx, &TxEvent);
 
 	return;
 }

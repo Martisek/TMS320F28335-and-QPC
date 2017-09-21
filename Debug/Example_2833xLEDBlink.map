@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v15.12.3                    
 ******************************************************************************
->> Linked Thu Sep 21 11:13:32 2017
+>> Linked Thu Sep 21 15:14:58 2017
 
 OUTPUT FILE NAME:   <Example_2833xLEDBlink.out>
 ENTRY POINT SYMBOL: "code_start"  address: 00000000
@@ -15,8 +15,8 @@ PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000050   000003b0  00000000  000003b0  RWIX
   RAML0                 00008000   00001000  000000ca  00000f36  RWIX
-  RAML1                 00009000   00001000  00000ffe  00000002  RWIX
-  RAML2                 0000a000   00001000  000000e2  00000f1e  RWIX
+  RAML1                 00009000   00001000  00001000  00000000  RWIX
+  RAML2                 0000a000   00001000  000000b7  00000f49  RWIX
   RAML3                 0000b000   00001000  00000000  00001000  RWIX
   ZONE7A                00200000   0000fc00  00000000  0000fc00  RWIX
   CSM_RSVD              0033ff80   00000076  00000000  00000076  RWIX
@@ -79,7 +79,7 @@ PAGE 1:
   SCIB                  00007750   00000010  00000010  00000000  RWIX
   SCIC                  00007770   00000010  00000010  00000000  RWIX
   I2CA                  00007900   00000040  00000022  0000001e  RWIX
-  RAML4                 0000c000   00001000  00000210  00000df0  RWIX
+  RAML4                 0000c000   00001000  00000290  00000d70  RWIX
   RAML5                 0000d000   00001000  000002f1  00000d0f  RWIX
   RAML6                 0000e000   00001000  00000000  00001000  RWIX
   RAML7                 0000f000   00001000  00000000  00001000  RWIX
@@ -103,58 +103,58 @@ ramfuncs   0    00008000    000000ca
                   000080c2    00000004     DSP2833x_usDelay.obj (ramfuncs)
                   000080c6    00000004     bsp.obj (ramfuncs)
 
-.cinit     0    00008000    00000115     COPY SECTION
+.cinit     0    00008000    0000011a     COPY SECTION
                   00008000    00000024     Example_2833xLEDBlink.obj (.cinit)
                   00008024    00000005     Blinky.obj (.cinit)
-                  00008029    000000be     Console.obj (.cinit)
-                  000080e7    00000014     Console_BSP.obj (.cinit)
-                  000080fb    0000000e     rts2800_fpu32.lib : exit.obj (.cinit)
-                  00008109    00000005                       : _lock.obj (.cinit:__unlock)
-                  0000810e    00000005                       : _lock.obj (.cinit:__lock)
-                  00008113    00000002     --HOLE-- [fill = 0]
+                  00008029    000000c3     Console.obj (.cinit)
+                  000080ec    00000014     Console_BSP.obj (.cinit)
+                  00008100    0000000e     rts2800_fpu32.lib : exit.obj (.cinit)
+                  0000810e    00000005                       : _lock.obj (.cinit:__unlock)
+                  00008113    00000005                       : _lock.obj (.cinit:__lock)
+                  00008118    00000002     --HOLE-- [fill = 0]
 
 .pinit     0    00008000    00000000     UNINITIALIZED
 
-.text.1    0    00009000    00000ffe     
+.text.1    0    00009000    00001000     
                   00009000    00000316     DSP2833x_DefaultIsr.obj (.text:retain)
                   00009316    000002b0     Console_BSP.obj (.text)
                   000095c6    0000015a     qhsm_dis.obj (.text)
-                  00009720    00000125     Console.obj (.text)
-                  00009845    000000f8     DSP2833x_SysCtrl.obj (.text)
-                  0000993d    000000a1     Example_2833xLEDBlink.obj (.text)
-                  000099de    00000097     Blinky.obj (.text)
-                  00009a75    00000082     Console_BSP.obj (.text:retain)
-                  00009af7    00000079     qa_get_.obj (.text)
-                  00009b70    00000078     qf_tick.obj (.text)
-                  00009be8    00000073     DSP2833x_CpuTimers.obj (.text)
-                  00009c5b    00000067     qhsm_ini.obj (.text)
-                  00009cc2    0000005d     qa_fifo.obj (.text)
-                  00009d1f    0000005a     qf_act.obj (.text)
-                  00009d79    00000058     qvanilla.obj (.text)
-                  00009dd1    00000056     rts2800_fpu32.lib : boot.obj (.text)
-                  00009e27    00000048     DSP2833x_Sci.obj (.text)
-                  00009e6f    00000046     rts2800_fpu32.lib : cpy_tbl.obj (.text)
-                  00009eb5    0000003e     Example_2833xLEDBlink.obj (.text:retain)
-                  00009ef3    0000003b     qte_arm.obj (.text)
-                  00009f2e    00000034     qf_port.obj (.text)
-                  00009f62    00000030     qmp_put.obj (.text)
-                  00009f92    0000002f     qf_gc.obj (.text)
-                  00009fc1    00000029     rts2800_fpu32.lib : exit.obj (.text)
-                  00009fea    00000009                       : _lock.obj (.text)
-                  00009ff3    00000008     DSP2833x_CodeStartBranch.obj (.text)
-                  00009ffb    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
-                  00009ffd    00000001                       : startup.obj (.text)
+                  00009720    000000fc     Console.obj (.text)
+                  0000981c    000000f8     DSP2833x_SysCtrl.obj (.text)
+                  00009914    000000a1     Example_2833xLEDBlink.obj (.text)
+                  000099b5    00000097     Blinky.obj (.text)
+                  00009a4c    00000082     Console_BSP.obj (.text:retain)
+                  00009ace    00000079     qa_get_.obj (.text)
+                  00009b47    00000078     qf_tick.obj (.text)
+                  00009bbf    00000073     DSP2833x_CpuTimers.obj (.text)
+                  00009c32    00000067     qhsm_ini.obj (.text)
+                  00009c99    0000005d     qa_fifo.obj (.text)
+                  00009cf6    0000005a     qf_act.obj (.text)
+                  00009d50    00000058     qvanilla.obj (.text)
+                  00009da8    00000056     rts2800_fpu32.lib : boot.obj (.text)
+                  00009dfe    00000048     DSP2833x_Sci.obj (.text)
+                  00009e46    00000046     rts2800_fpu32.lib : cpy_tbl.obj (.text)
+                  00009e8c    0000003e     Example_2833xLEDBlink.obj (.text:retain)
+                  00009eca    0000003b     qte_arm.obj (.text)
+                  00009f05    00000034     qf_port.obj (.text)
+                  00009f39    00000030     qmp_put.obj (.text)
+                  00009f69    0000002f     qf_gc.obj (.text)
+                  00009f98    00000029     rts2800_fpu32.lib : exit.obj (.text)
+                  00009fc1    00000028     DSP2833x_PieCtrl.obj (.text)
+                  00009fe9    00000009     rts2800_fpu32.lib : _lock.obj (.text)
+                  00009ff2    00000008     DSP2833x_CodeStartBranch.obj (.text)
+                  00009ffa    00000006     qhsm_top.obj (.text)
 
-.text.2    0    0000a000    000000e2     
-                  0000a000    00000028     DSP2833x_PieCtrl.obj (.text)
-                  0000a028    00000020     DSP2833x_PieVect.obj (.text)
-                  0000a048    00000020     qte_ctor.obj (.text)
-                  0000a068    0000001e     bsp.obj (.text)
-                  0000a086    0000001b     qeq_init.obj (.text)
-                  0000a0a1    0000001a     rts2800_fpu32.lib : cpy_utils.obj (.text)
-                  0000a0bb    00000019                       : args_main.obj (.text)
-                  0000a0d4    00000008                       : strlen.obj (.text)
-                  0000a0dc    00000006     qhsm_top.obj (.text)
+.text.2    0    0000a000    000000b7     
+                  0000a000    00000020     DSP2833x_PieVect.obj (.text)
+                  0000a020    00000020     qte_ctor.obj (.text)
+                  0000a040    0000001e     bsp.obj (.text)
+                  0000a05e    0000001b     qeq_init.obj (.text)
+                  0000a079    0000001a     rts2800_fpu32.lib : cpy_utils.obj (.text)
+                  0000a093    00000019                       : args_main.obj (.text)
+                  0000a0ac    00000008                       : strlen.obj (.text)
+                  0000a0b4    00000002                       : pre_init.obj (.text)
+                  0000a0b6    00000001                       : startup.obj (.text)
 
 .adc_cal   0    00380080    00000007     NOLOAD SECTION
                   00380080    00000007     DSP2833x_ADC_cal.obj (.adc_cal)
@@ -354,21 +354,21 @@ I2caRegsFile
 *          1    00007900    00000022     UNINITIALIZED
                   00007900    00000022     DSP2833x_GlobalVariableDefs.obj (I2caRegsFile)
 
-.ebss      1    0000c000    00000210     UNINITIALIZED
-                  0000c000    000000dc     Console.obj (.ebss)
-                  0000c0dc    00000020     qf_pool.obj (.ebss)
-                  0000c0fc    00000004     qf_port.obj (.ebss)
-                  0000c100    0000007f     Example_2833xLEDBlink.obj (.ebss)
-                  0000c17f    00000001     qvanilla.obj (.ebss)
-                  0000c180    00000036     Console_BSP.obj (.ebss)
-                  0000c1b6    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
-                  0000c1bc    00000002                       : _lock.obj (.ebss:__lock)
-                  0000c1be    00000002                       : _lock.obj (.ebss:__unlock)
-                  0000c1c0    0000001e     Blinky.obj (.ebss)
-                  0000c1de    00000018     DSP2833x_CpuTimers.obj (.ebss)
-                  0000c1f6    00000002     qte_arm.obj (.ebss)
-                  0000c1f8    00000008     --HOLE--
-                  0000c200    00000010     qf_act.obj (.ebss)
+.ebss      1    0000c000    00000290     UNINITIALIZED
+                  0000c000    00000160     Console.obj (.ebss)
+                  0000c160    00000020     qf_pool.obj (.ebss)
+                  0000c180    0000007f     Example_2833xLEDBlink.obj (.ebss)
+                  0000c1ff    00000001     qvanilla.obj (.ebss)
+                  0000c200    00000036     Console_BSP.obj (.ebss)
+                  0000c236    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
+                  0000c23c    00000004     qf_port.obj (.ebss)
+                  0000c240    0000001e     Blinky.obj (.ebss)
+                  0000c25e    00000018     DSP2833x_CpuTimers.obj (.ebss)
+                  0000c276    00000002     rts2800_fpu32.lib : _lock.obj (.ebss:__lock)
+                  0000c278    00000002                       : _lock.obj (.ebss:__unlock)
+                  0000c27a    00000002     qte_arm.obj (.ebss)
+                  0000c27c    00000004     --HOLE--
+                  0000c280    00000010     qf_act.obj (.ebss)
 
 .econst    1    0000d000    000002f1     
                   0000d000    00000100     qf_log2.obj (.econst:.string:_QF_log2Lkup)
@@ -433,9 +433,9 @@ MODULE SUMMARY
                                                                  
     .\Console\
        Console_BSP.obj                   983    0         54     
-       Console.obj                       293    0         220    
+       Console.obj                       252    0         352    
     +--+---------------------------------+------+---------+---------+
-       Total:                            1276   0         274    
+       Total:                            1235   0         406    
                                                                  
     .\QP_port\
        qf_port.obj                       52     0         4      
@@ -482,7 +482,7 @@ MODULE SUMMARY
                                                                  
        Stack:                            0      0         512    
     +--+---------------------------------+------+---------+---------+
-       Grand Total:                      4531   0         4464   
+       Grand Total:                      4490   0         4596   
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -578,56 +578,58 @@ address     data page           name
 00007900     1e4 (00007900)     _I2caRegs
 
 0000c000     300 (0000c000)     _menuPtr
-0000c002     300 (0000c000)     _AO_Console
-0000c004     300 (0000c000)     _MenuMsgItem_4
-0000c008     300 (0000c000)     _MenuMsgItem_5
-0000c00c     300 (0000c000)     _MenuMsgItem_3
-0000c010     300 (0000c000)     _MenuMsgItem_1
-0000c014     300 (0000c000)     _MenuMsgItem_2
-0000c018     300 (0000c000)     _ErrorText
-0000c029     300 (0000c000)     _TextMenu_2
+0000c002     300 (0000c000)     _AO_ConsoleRx
+0000c004     300 (0000c000)     _AO_ConsoleTx
+0000c006     300 (0000c000)     _MenuMsgItem_3
+0000c00a     300 (0000c000)     _MenuMsgItem_4
+0000c00e     300 (0000c000)     _MenuMsgItem_5
+0000c012     300 (0000c000)     _MenuMsgItem_1
+0000c016     300 (0000c000)     _MenuMsgItem_2
+0000c01a     300 (0000c000)     _ErrorText
 
-0000c040     301 (0000c040)     _TextMenu_1
-0000c056     301 (0000c040)     _TextMenu_4
+0000c040     301 (0000c040)     _TextMenu_2
+0000c056     301 (0000c040)     _TextMenu_1
 
-0000c080     302 (0000c080)     _TextMenu_3
-0000c096     302 (0000c080)     _TextMenu_5
+0000c080     302 (0000c080)     _TextMenu_4
+0000c096     302 (0000c080)     _TextMenu_3
 
-0000c0dc     303 (0000c0c0)     _QF_maxPool_
-0000c0de     303 (0000c0c0)     _QF_pool_
-0000c0fc     303 (0000c0c0)     _QF_maxSignal_
-0000c0fe     303 (0000c0c0)     _QF_subscrList_
+0000c0c0     303 (0000c0c0)     _TextMenu_5
 
-0000c100     304 (0000c100)     _strl
-0000c102     304 (0000c100)     _rcBytes
+0000c160     305 (0000c140)     _QF_maxPool_
+0000c162     305 (0000c140)     _QF_pool_
 
-0000c140     305 (0000c140)     _ConsoleRecData
-0000c15e     305 (0000c140)     _ConsoleText
-0000c17f     305 (0000c140)     _QF_readySet_
+0000c180     306 (0000c180)     _strl
+0000c182     306 (0000c180)     _rcBytes
 
-0000c180     306 (0000c180)     _Console_Flags
-0000c181     306 (0000c180)     _ReceivingDone
-0000c182     306 (0000c180)     _Console_ConfigPtr
-0000c184     306 (0000c180)     _Console_Rx_HandlePtr
-0000c186     306 (0000c180)     _Console_FlagsPtr
-0000c188     306 (0000c180)     _Console_Tx_HandlePtr
-0000c18a     306 (0000c180)     _Console_Config
-0000c196     306 (0000c180)     _Console_Tx_Handle
-0000c1a4     306 (0000c180)     _Console_Rx_Handle
-0000c1b6     306 (0000c180)     ___TI_enable_exit_profile_output
-0000c1b8     306 (0000c180)     ___TI_cleanup_ptr
-0000c1ba     306 (0000c180)     ___TI_dtors_ptr
-0000c1bc     306 (0000c180)     __lock
-0000c1be     306 (0000c180)     __unlock
+0000c1c0     307 (0000c1c0)     _ConsoleRecData
+0000c1de     307 (0000c1c0)     _ConsoleText
+0000c1ff     307 (0000c1c0)     _QF_readySet_
 
-0000c1c0     307 (0000c1c0)     _AO_Blinky
-0000c1de     307 (0000c1c0)     _CpuTimer1
-0000c1e6     307 (0000c1c0)     _CpuTimer2
-0000c1ee     307 (0000c1c0)     _CpuTimer0
-0000c1f6     307 (0000c1c0)     _QF_timeEvtListHead_
+0000c200     308 (0000c200)     _Console_Flags
+0000c201     308 (0000c200)     _ReceivingDone
+0000c202     308 (0000c200)     _Console_ConfigPtr
+0000c204     308 (0000c200)     _Console_Rx_HandlePtr
+0000c206     308 (0000c200)     _Console_FlagsPtr
+0000c208     308 (0000c200)     _Console_Tx_HandlePtr
+0000c20a     308 (0000c200)     _Console_Config
+0000c216     308 (0000c200)     _Console_Tx_Handle
+0000c224     308 (0000c200)     _Console_Rx_Handle
+0000c236     308 (0000c200)     ___TI_enable_exit_profile_output
+0000c238     308 (0000c200)     ___TI_cleanup_ptr
+0000c23a     308 (0000c200)     ___TI_dtors_ptr
+0000c23c     308 (0000c200)     _QF_maxSignal_
+0000c23e     308 (0000c200)     _QF_subscrList_
 
-0000c200     308 (0000c200)     _QF_intLockNest_
-0000c202     308 (0000c200)     _QF_active_
+0000c240     309 (0000c240)     _AO_Blinky
+0000c25e     309 (0000c240)     _CpuTimer1
+0000c266     309 (0000c240)     _CpuTimer2
+0000c26e     309 (0000c240)     _CpuTimer0
+0000c276     309 (0000c240)     __lock
+0000c278     309 (0000c240)     __unlock
+0000c27a     309 (0000c240)     _QF_timeEvtListHead_
+
+0000c280     30a (0000c280)     _QF_intLockNest_
+0000c282     30a (0000c280)     _QF_active_
 
 0000d000     340 (0000d000)     _QF_log2Lkup
 
@@ -649,56 +651,57 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                             
 ----  -------   ----                             
 abs   ffffffff  .text                            
-0     00009fc1  C$$EXIT                          
+0     00009f98  C$$EXIT                          
 0     000090e6  _ADCINT_ISR                      
 0     00380080  _ADC_cal                         
-1     0000c1c0  _AO_Blinky                       
-1     0000c002  _AO_Console                      
+1     0000c240  _AO_Blinky                       
+1     0000c002  _AO_ConsoleRx                    
+1     0000c004  _AO_ConsoleTx                    
 1     00000b00  _AdcMirror                       
 1     00007100  _AdcRegs                         
-0     0000a069  _BSP_Led_Off                     
-0     0000a06e  _BSP_Led_On                      
-0     0000a068  _BSP_init                        
-0     000099de  _BlinkyCtor                      
-0     00009c21  _ConfigCpuTimer                  
-0     00009720  _ConsoleCtor                     
-1     0000c140  _ConsoleRecData                  
+0     0000a041  _BSP_Led_Off                     
+0     0000a046  _BSP_Led_On                      
+0     0000a040  _BSP_init                        
+0     000099b5  _BlinkyCtor                      
+0     00009bf8  _ConfigCpuTimer                  
+1     0000c1c0  _ConsoleRecData                  
 0     000080b9  _ConsoleRecDone                  
-0     00009a75  _ConsoleReceivingISR             
+0     00009a4c  _ConsoleReceivingISR             
 0     00008063  _ConsoleRxTimeoutISR             
 0     00008000  _ConsoleSendingISR               
-1     0000c15e  _ConsoleText                     
+1     0000c1de  _ConsoleText                     
+0     00009720  _ConsoleTxCtor                   
 0     000080a5  _ConsoleTxDone                   
 0     000095c1  _Console_AbortSending            
-1     0000c18a  _Console_Config                  
-1     0000c182  _Console_ConfigPtr               
-1     0000c180  _Console_Flags                   
-1     0000c186  _Console_FlagsPtr                
+1     0000c20a  _Console_Config                  
+1     0000c202  _Console_ConfigPtr               
+1     0000c200  _Console_Flags                   
+1     0000c206  _Console_FlagsPtr                
 0     0000941d  _Console_GetDefaultConfig        
 0     000094bf  _Console_GetStatusFlags          
 0     00009316  _Console_Init                    
 0     000094fb  _Console_ReadBlocking            
 0     000094c4  _Console_ReadChar                
 0     00009521  _Console_RxCreateHandle          
-1     0000c1a4  _Console_Rx_Handle               
-1     0000c184  _Console_Rx_HandlePtr            
+1     0000c224  _Console_Rx_Handle               
+1     0000c204  _Console_Rx_HandlePtr            
 0     000095bb  _Console_TransferGetSentCount    
 0     0000957a  _Console_TransferReadNonBlocking 
 0     0000954c  _Console_TransferWriteNonBlocking
 0     00009502  _Console_TxCreateHandle          
-1     0000c196  _Console_Tx_Handle               
-1     0000c188  _Console_Tx_HandlePtr            
+1     0000c216  _Console_Tx_Handle               
+1     0000c208  _Console_Tx_HandlePtr            
 0     00009470  _Console_WriteBlocking           
 0     00009432  _Console_WriteChar               
-1     0000c1ee  _CpuTimer0                       
+1     0000c26e  _CpuTimer0                       
 1     00000c00  _CpuTimer0Regs                   
-1     0000c1de  _CpuTimer1                       
+1     0000c25e  _CpuTimer1                       
 1     00000c08  _CpuTimer1Regs                   
-1     0000c1e6  _CpuTimer2                       
+1     0000c266  _CpuTimer2                       
 1     00000c10  _CpuTimer2Regs                   
 1     0033fff8  _CsmPwl                          
 1     00000ae0  _CsmRegs                         
-0     0000990c  _CsmUnlock                       
+0     000098e3  _CsmUnlock                       
 0     00009014  _DATALOG_ISR                     
 0     00009208  _DINTCH1_ISR                     
 0     00009212  _DINTCH2_ISR                     
@@ -708,7 +711,7 @@ abs   ffffffff  .text
 0     0000923a  _DINTCH6_ISR                     
 0     000080c2  _DSP28x_usDelay                  
 1     00000880  _DevEmuRegs                      
-0     00009858  _DisableDog                      
+0     0000982f  _DisableDog                      
 1     00001000  _DmaRegs                         
 0     00009294  _ECAN0INTA_ISR                   
 0     000092a8  _ECAN0INTB_ISR                   
@@ -759,8 +762,8 @@ abs   ffffffff  .text
 0     000091c2  _EQEP2_INT_ISR                   
 1     00006b00  _EQep1Regs                       
 1     00006b40  _EQep2Regs                       
-0     0000a01f  _EnableInterrupts                
-1     0000c018  _ErrorText                       
+0     00009fe0  _EnableInterrupts                
+1     0000c01a  _ErrorText                       
 1     00000a80  _FlashRegs                       
 1     00006f80  _GpioCtrlRegs                    
 1     00006fc0  _GpioDataRegs                    
@@ -771,17 +774,17 @@ abs   ffffffff  .text
 0     0000903c  _ILLEGAL_ISR                     
 0     00009000  _INT13_ISR                       
 0     0000900a  _INT14_ISR                       
-0     00009be8  _InitCpuTimers                   
-0     000098b1  _InitPeripheralClocks            
-0     0000a000  _InitPieCtrl                     
-0     0000a028  _InitPieVectTable                
-0     00009860  _InitPll                         
-0     00009e27  _InitSci                         
-0     00009e28  _InitSciGpio                     
-0     00009e2f  _InitSciaGpio                    
-0     00009e45  _InitScibGpio                    
-0     00009e59  _InitScicGpio                    
-0     00009845  _InitSysCtrl                     
+0     00009bbf  _InitCpuTimers                   
+0     00009888  _InitPeripheralClocks            
+0     00009fc1  _InitPieCtrl                     
+0     0000a000  _InitPieVectTable                
+0     00009837  _InitPll                         
+0     00009dfe  _InitSci                         
+0     00009dff  _InitSciGpio                     
+0     00009e06  _InitSciaGpio                    
+0     00009e1c  _InitScibGpio                    
+0     00009e30  _InitScicGpio                    
+0     0000981c  _InitSysCtrl                     
 0     000092f8  _LUF_ISR                         
 0     000092ee  _LVF_ISR                         
 0     000091f4  _MRINTA_ISR                      
@@ -790,58 +793,58 @@ abs   ffffffff  .text
 0     000091ea  _MXINTB_ISR                      
 1     00005000  _McbspaRegs                      
 1     00005040  _McbspbRegs                      
-1     0000c010  _MenuMsgItem_1                   
-1     0000c014  _MenuMsgItem_2                   
-1     0000c00c  _MenuMsgItem_3                   
-1     0000c004  _MenuMsgItem_4                   
-1     0000c008  _MenuMsgItem_5                   
+1     0000c012  _MenuMsgItem_1                   
+1     0000c016  _MenuMsgItem_2                   
+1     0000c006  _MenuMsgItem_3                   
+1     0000c00a  _MenuMsgItem_4                   
+1     0000c00e  _MenuMsgItem_5                   
 0     00009032  _NMI_ISR                         
 0     00009302  _PIE_RESERVED                    
 1     00380090  _PartIdRegs                      
 1     00000ce0  _PieCtrlRegs                     
 1     00000d00  _PieVectTable                    
 1     0000d100  _PieVectTableInit                
-0     00009af7  _QActive_get_                    
-0     00009cc2  _QActive_postFIFO                
-0     00009da7  _QActive_start                   
-0     00009dcb  _QActive_stop                    
+0     00009ace  _QActive_get_                    
+0     00009c99  _QActive_postFIFO                
+0     00009d7e  _QActive_start                   
+0     00009da2  _QActive_stop                    
 1     0000d282  _QEP_reservedEvt_                
-0     0000a086  _QEQueue_init                    
-1     0000c202  _QF_active_                      
-0     00009d22  _QF_add_                         
-0     00009f92  _QF_gc                           
-0     00009b48  _QF_getQueueMargin               
-0     00009d1f  _QF_getVersion                   
-0     00009d79  _QF_init                         
-1     0000c200  _QF_intLockNest_                 
+0     0000a05e  _QEQueue_init                    
+1     0000c282  _QF_active_                      
+0     00009cf9  _QF_add_                         
+0     00009f69  _QF_gc                           
+0     00009b1f  _QF_getQueueMargin               
+0     00009cf6  _QF_getVersion                   
+0     00009d50  _QF_init                         
+1     0000c280  _QF_intLockNest_                 
 1     0000d200  _QF_invPwr2Lkup                  
 1     0000d000  _QF_log2Lkup                     
-1     0000c0dc  _QF_maxPool_                     
-1     0000c0fc  _QF_maxSignal_                   
-0     00009f26  _QF_noTimeEvtsActive             
-0     0000a085  _QF_onCleanup                    
+1     0000c160  _QF_maxPool_                     
+1     0000c23c  _QF_maxSignal_                   
+0     00009efd  _QF_noTimeEvtsActive             
+0     0000a05d  _QF_onCleanup                    
 0     000080c6  _QF_onIdle                       
-0     0000a078  _QF_onStartup                    
-1     0000c0de  _QF_pool_                        
-0     00009f54  _QF_psInit                       
+0     0000a050  _QF_onStartup                    
+1     0000c162  _QF_pool_                        
+0     00009f2b  _QF_psInit                       
 1     0000d241  _QF_pwr2Lkup                     
-1     0000c17f  _QF_readySet_                    
-0     00009d4d  _QF_remove_                      
-0     00009d7d  _QF_run                          
-0     00009d7a  _QF_stop                         
-1     0000c0fe  _QF_subscrList_                  
-0     00009b70  _QF_tick                         
-1     0000c1f6  _QF_timeEvtListHead_             
-0     00009f41  _QF_zero                         
+1     0000c1ff  _QF_readySet_                    
+0     00009d24  _QF_remove_                      
+0     00009d54  _QF_run                          
+0     00009d51  _QF_stop                         
+1     0000c23e  _QF_subscrList_                  
+0     00009b47  _QF_tick                         
+1     0000c27a  _QF_timeEvtListHead_             
+0     00009f18  _QF_zero                         
 0     000095c6  _QHsm_dispatch                   
-0     00009c5b  _QHsm_init                       
-0     0000a0dc  _QHsm_top                        
-0     00009f62  _QMPool_put                      
-0     00009ef3  _QTimeEvt_arm_                   
-0     0000a048  _QTimeEvt_ctor                   
-0     0000a073  _Q_onAssert                      
+0     00009c32  _QHsm_init                       
+0     00009ffa  _QHsm_top                        
+0     00009f39  _QMPool_put                      
+0     00009eca  _QTimeEvt_arm_                   
+0     0000a020  _QTimeEvt_ctor                   
+0     0000a04b  _Q_onAssert                      
 0     0000901e  _RTOSINT_ISR                     
-1     0000c181  _ReceivingDone                   
+1     0000c201  _ReceivingDone                   
 0     0000926c  _SCIRXINTA_ISR                   
 0     00009280  _SCIRXINTB_ISR                   
 0     00009258  _SCIRXINTC_ISR                   
@@ -855,15 +858,15 @@ abs   ffffffff  .text
 1     00007050  _SciaRegs                        
 1     00007750  _ScibRegs                        
 1     00007770  _ScicRegs                        
-0     0000984e  _ServiceDog                      
+0     00009825  _ServiceDog                      
 1     00007040  _SpiaRegs                        
 1     00007010  _SysCtrlRegs                     
 0     000090f0  _TINT0_ISR                       
-1     0000c040  _TextMenu_1                      
-1     0000c029  _TextMenu_2                      
-1     0000c080  _TextMenu_3                      
-1     0000c056  _TextMenu_4                      
-1     0000c096  _TextMenu_5                      
+1     0000c056  _TextMenu_1                      
+1     0000c040  _TextMenu_2                      
+1     0000c096  _TextMenu_3                      
+1     0000c080  _TextMenu_4                      
+1     0000c0c0  _TextMenu_5                      
 0     000090a0  _USER10_ISR                      
 0     000090aa  _USER11_ISR                      
 0     000090b4  _USER12_ISR                      
@@ -888,9 +891,9 @@ abs   ffffffff  .text
 1     00000b20  _XintfRegs                       
 1     00000600  __STACK_END                      
 abs   00000200  __STACK_SIZE                     
-1     0000c1b8  ___TI_cleanup_ptr                
-1     0000c1ba  ___TI_dtors_ptr                  
-1     0000c1b6  ___TI_enable_exit_profile_output 
+1     0000c238  ___TI_cleanup_ptr                
+1     0000c23a  ___TI_dtors_ptr                  
+1     0000c236  ___TI_enable_exit_profile_output 
 abs   ffffffff  ___TI_pprof_out_hndl             
 abs   ffffffff  ___TI_prof_data_size             
 abs   ffffffff  ___TI_prof_data_start            
@@ -900,31 +903,31 @@ abs   ffffffff  ___cinit__
 abs   ffffffff  ___etext__                       
 abs   ffffffff  ___pinit__                       
 abs   ffffffff  ___text__                        
-0     0000a0bb  __args_main                      
-1     0000c1bc  __lock                           
-0     00009ff2  __nop                            
-0     00009fee  __register_lock                  
-0     00009fea  __register_unlock                
+0     0000a093  __args_main                      
+1     0000c276  __lock                           
+0     00009ff1  __nop                            
+0     00009fed  __register_lock                  
+0     00009fe9  __register_unlock                
 1     00000400  __stack                          
-0     00009ffd  __system_post_cinit              
-0     00009ffb  __system_pre_init                
-1     0000c1be  __unlock                         
-0     00009fc1  _abort                           
-0     00009f2e  _bzero                           
-0     00009dd1  _c_int00                         
-0     00009e6f  _copy_in                         
-0     00009eb5  _cpu_timer0_isr                  
-0     0000a0a1  _ddcopy                          
-0     0000a0a1  _dpcopy                          
-0     00009fc3  _exit                            
-0     0000993d  _main                            
+0     0000a0b6  __system_post_cinit              
+0     0000a0b4  __system_pre_init                
+1     0000c278  __unlock                         
+0     00009f98  _abort                           
+0     00009f05  _bzero                           
+0     00009da8  _c_int00                         
+0     00009e46  _copy_in                         
+0     00009e8c  _cpu_timer0_isr                  
+0     0000a079  _ddcopy                          
+0     0000a079  _dpcopy                          
+0     00009f9a  _exit                            
+0     00009914  _main                            
 1     0000c000  _menuPtr                         
-0     0000a0a1  _pdcopy                          
-0     0000a0a1  _ppcopy                          
-1     0000c102  _rcBytes                         
+0     0000a079  _pdcopy                          
+0     0000a079  _ppcopy                          
+1     0000c182  _rcBytes                         
 0     0000930c  _rsvd_ISR                        
-1     0000c100  _strl                            
-0     0000a0d4  _strlen                          
+1     0000c180  _strl                            
+0     0000a0ac  _strlen                          
 abs   ffffffff  binit                            
 abs   ffffffff  cinit                            
 0     00000000  code_start                       
@@ -1036,72 +1039,72 @@ page  address   name
 0     000095bb  _Console_TransferGetSentCount    
 0     000095c1  _Console_AbortSending            
 0     000095c6  _QHsm_dispatch                   
-0     00009720  _ConsoleCtor                     
-0     00009845  _InitSysCtrl                     
-0     0000984e  _ServiceDog                      
-0     00009858  _DisableDog                      
-0     00009860  _InitPll                         
-0     000098b1  _InitPeripheralClocks            
-0     0000990c  _CsmUnlock                       
-0     0000993d  _main                            
-0     000099de  _BlinkyCtor                      
-0     00009a75  _ConsoleReceivingISR             
-0     00009af7  _QActive_get_                    
-0     00009b48  _QF_getQueueMargin               
-0     00009b70  _QF_tick                         
-0     00009be8  _InitCpuTimers                   
-0     00009c21  _ConfigCpuTimer                  
-0     00009c5b  _QHsm_init                       
-0     00009cc2  _QActive_postFIFO                
-0     00009d1f  _QF_getVersion                   
-0     00009d22  _QF_add_                         
-0     00009d4d  _QF_remove_                      
-0     00009d79  _QF_init                         
-0     00009d7a  _QF_stop                         
-0     00009d7d  _QF_run                          
-0     00009da7  _QActive_start                   
-0     00009dcb  _QActive_stop                    
-0     00009dd1  _c_int00                         
-0     00009e27  _InitSci                         
-0     00009e28  _InitSciGpio                     
-0     00009e2f  _InitSciaGpio                    
-0     00009e45  _InitScibGpio                    
-0     00009e59  _InitScicGpio                    
-0     00009e6f  _copy_in                         
-0     00009eb5  _cpu_timer0_isr                  
-0     00009ef3  _QTimeEvt_arm_                   
-0     00009f26  _QF_noTimeEvtsActive             
-0     00009f2e  _bzero                           
-0     00009f41  _QF_zero                         
-0     00009f54  _QF_psInit                       
-0     00009f62  _QMPool_put                      
-0     00009f92  _QF_gc                           
-0     00009fc1  C$$EXIT                          
-0     00009fc1  _abort                           
-0     00009fc3  _exit                            
-0     00009fea  __register_unlock                
-0     00009fee  __register_lock                  
-0     00009ff2  __nop                            
-0     00009ffb  __system_pre_init                
-0     00009ffd  __system_post_cinit              
-0     0000a000  _InitPieCtrl                     
-0     0000a01f  _EnableInterrupts                
-0     0000a028  _InitPieVectTable                
-0     0000a048  _QTimeEvt_ctor                   
-0     0000a068  _BSP_init                        
-0     0000a069  _BSP_Led_Off                     
-0     0000a06e  _BSP_Led_On                      
-0     0000a073  _Q_onAssert                      
-0     0000a078  _QF_onStartup                    
-0     0000a085  _QF_onCleanup                    
-0     0000a086  _QEQueue_init                    
-0     0000a0a1  _ddcopy                          
-0     0000a0a1  _dpcopy                          
-0     0000a0a1  _pdcopy                          
-0     0000a0a1  _ppcopy                          
-0     0000a0bb  __args_main                      
-0     0000a0d4  _strlen                          
-0     0000a0dc  _QHsm_top                        
+0     00009720  _ConsoleTxCtor                   
+0     0000981c  _InitSysCtrl                     
+0     00009825  _ServiceDog                      
+0     0000982f  _DisableDog                      
+0     00009837  _InitPll                         
+0     00009888  _InitPeripheralClocks            
+0     000098e3  _CsmUnlock                       
+0     00009914  _main                            
+0     000099b5  _BlinkyCtor                      
+0     00009a4c  _ConsoleReceivingISR             
+0     00009ace  _QActive_get_                    
+0     00009b1f  _QF_getQueueMargin               
+0     00009b47  _QF_tick                         
+0     00009bbf  _InitCpuTimers                   
+0     00009bf8  _ConfigCpuTimer                  
+0     00009c32  _QHsm_init                       
+0     00009c99  _QActive_postFIFO                
+0     00009cf6  _QF_getVersion                   
+0     00009cf9  _QF_add_                         
+0     00009d24  _QF_remove_                      
+0     00009d50  _QF_init                         
+0     00009d51  _QF_stop                         
+0     00009d54  _QF_run                          
+0     00009d7e  _QActive_start                   
+0     00009da2  _QActive_stop                    
+0     00009da8  _c_int00                         
+0     00009dfe  _InitSci                         
+0     00009dff  _InitSciGpio                     
+0     00009e06  _InitSciaGpio                    
+0     00009e1c  _InitScibGpio                    
+0     00009e30  _InitScicGpio                    
+0     00009e46  _copy_in                         
+0     00009e8c  _cpu_timer0_isr                  
+0     00009eca  _QTimeEvt_arm_                   
+0     00009efd  _QF_noTimeEvtsActive             
+0     00009f05  _bzero                           
+0     00009f18  _QF_zero                         
+0     00009f2b  _QF_psInit                       
+0     00009f39  _QMPool_put                      
+0     00009f69  _QF_gc                           
+0     00009f98  C$$EXIT                          
+0     00009f98  _abort                           
+0     00009f9a  _exit                            
+0     00009fc1  _InitPieCtrl                     
+0     00009fe0  _EnableInterrupts                
+0     00009fe9  __register_unlock                
+0     00009fed  __register_lock                  
+0     00009ff1  __nop                            
+0     00009ffa  _QHsm_top                        
+0     0000a000  _InitPieVectTable                
+0     0000a020  _QTimeEvt_ctor                   
+0     0000a040  _BSP_init                        
+0     0000a041  _BSP_Led_Off                     
+0     0000a046  _BSP_Led_On                      
+0     0000a04b  _Q_onAssert                      
+0     0000a050  _QF_onStartup                    
+0     0000a05d  _QF_onCleanup                    
+0     0000a05e  _QEQueue_init                    
+0     0000a079  _ddcopy                          
+0     0000a079  _dpcopy                          
+0     0000a079  _pdcopy                          
+0     0000a079  _ppcopy                          
+0     0000a093  __args_main                      
+0     0000a0ac  _strlen                          
+0     0000a0b4  __system_pre_init                
+0     0000a0b6  __system_post_cinit              
 0     00380080  _ADC_cal                         
 1     00000400  __stack                          
 1     00000600  __STACK_END                      
@@ -1154,48 +1157,49 @@ page  address   name
 1     00007770  _ScicRegs                        
 1     00007900  _I2caRegs                        
 1     0000c000  _menuPtr                         
-1     0000c002  _AO_Console                      
-1     0000c004  _MenuMsgItem_4                   
-1     0000c008  _MenuMsgItem_5                   
-1     0000c00c  _MenuMsgItem_3                   
-1     0000c010  _MenuMsgItem_1                   
-1     0000c014  _MenuMsgItem_2                   
-1     0000c018  _ErrorText                       
-1     0000c029  _TextMenu_2                      
-1     0000c040  _TextMenu_1                      
-1     0000c056  _TextMenu_4                      
-1     0000c080  _TextMenu_3                      
-1     0000c096  _TextMenu_5                      
-1     0000c0dc  _QF_maxPool_                     
-1     0000c0de  _QF_pool_                        
-1     0000c0fc  _QF_maxSignal_                   
-1     0000c0fe  _QF_subscrList_                  
-1     0000c100  _strl                            
-1     0000c102  _rcBytes                         
-1     0000c140  _ConsoleRecData                  
-1     0000c15e  _ConsoleText                     
-1     0000c17f  _QF_readySet_                    
-1     0000c180  _Console_Flags                   
-1     0000c181  _ReceivingDone                   
-1     0000c182  _Console_ConfigPtr               
-1     0000c184  _Console_Rx_HandlePtr            
-1     0000c186  _Console_FlagsPtr                
-1     0000c188  _Console_Tx_HandlePtr            
-1     0000c18a  _Console_Config                  
-1     0000c196  _Console_Tx_Handle               
-1     0000c1a4  _Console_Rx_Handle               
-1     0000c1b6  ___TI_enable_exit_profile_output 
-1     0000c1b8  ___TI_cleanup_ptr                
-1     0000c1ba  ___TI_dtors_ptr                  
-1     0000c1bc  __lock                           
-1     0000c1be  __unlock                         
-1     0000c1c0  _AO_Blinky                       
-1     0000c1de  _CpuTimer1                       
-1     0000c1e6  _CpuTimer2                       
-1     0000c1ee  _CpuTimer0                       
-1     0000c1f6  _QF_timeEvtListHead_             
-1     0000c200  _QF_intLockNest_                 
-1     0000c202  _QF_active_                      
+1     0000c002  _AO_ConsoleRx                    
+1     0000c004  _AO_ConsoleTx                    
+1     0000c006  _MenuMsgItem_3                   
+1     0000c00a  _MenuMsgItem_4                   
+1     0000c00e  _MenuMsgItem_5                   
+1     0000c012  _MenuMsgItem_1                   
+1     0000c016  _MenuMsgItem_2                   
+1     0000c01a  _ErrorText                       
+1     0000c040  _TextMenu_2                      
+1     0000c056  _TextMenu_1                      
+1     0000c080  _TextMenu_4                      
+1     0000c096  _TextMenu_3                      
+1     0000c0c0  _TextMenu_5                      
+1     0000c160  _QF_maxPool_                     
+1     0000c162  _QF_pool_                        
+1     0000c180  _strl                            
+1     0000c182  _rcBytes                         
+1     0000c1c0  _ConsoleRecData                  
+1     0000c1de  _ConsoleText                     
+1     0000c1ff  _QF_readySet_                    
+1     0000c200  _Console_Flags                   
+1     0000c201  _ReceivingDone                   
+1     0000c202  _Console_ConfigPtr               
+1     0000c204  _Console_Rx_HandlePtr            
+1     0000c206  _Console_FlagsPtr                
+1     0000c208  _Console_Tx_HandlePtr            
+1     0000c20a  _Console_Config                  
+1     0000c216  _Console_Tx_Handle               
+1     0000c224  _Console_Rx_Handle               
+1     0000c236  ___TI_enable_exit_profile_output 
+1     0000c238  ___TI_cleanup_ptr                
+1     0000c23a  ___TI_dtors_ptr                  
+1     0000c23c  _QF_maxSignal_                   
+1     0000c23e  _QF_subscrList_                  
+1     0000c240  _AO_Blinky                       
+1     0000c25e  _CpuTimer1                       
+1     0000c266  _CpuTimer2                       
+1     0000c26e  _CpuTimer0                       
+1     0000c276  __lock                           
+1     0000c278  __unlock                         
+1     0000c27a  _QF_timeEvtListHead_             
+1     0000c280  _QF_intLockNest_                 
+1     0000c282  _QF_active_                      
 1     0000d000  _QF_log2Lkup                     
 1     0000d100  _PieVectTableInit                
 1     0000d200  _QF_invPwr2Lkup                  
@@ -1219,4 +1223,4 @@ abs   ffffffff  cinit
 abs   ffffffff  etext                            
 abs   ffffffff  pinit                            
 
-[282 symbols]
+[283 symbols]
