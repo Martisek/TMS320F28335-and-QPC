@@ -27,9 +27,10 @@ MenuMsgItem MenuMsgItem_3 = {TextMenu_3, &MenuMsgItem_4 };
 MenuMsgItem MenuMsgItem_2 = {TextMenu_2, &MenuMsgItem_3 };
 MenuMsgItem MenuMsgItem_1 = {TextMenu_1, &MenuMsgItem_2 };
 
-char ErrorText[] = "\nStav Tx IDLE!!\n";
+char InfoText_1[] = "\nStav Tx IDLE!!\n";
 
 MenuMsgItem *menuPtr = &MenuMsgItem_1;
+MenuMsgItem *menuItem;
 
 /*-----------------------------------------------------------------------------------------------*/
 /*< Function prototypes >*/
@@ -59,7 +60,7 @@ void ConsoleTxCtor(void)
 	Console_Tx *me = &ConsoleObjectTx;
 	QActive_ctor(&me->super, Q_STATE_CAST(&Console_tx_init));
 	QTimeEvt_ctor(&me->timeEvt, CONSOLE_TMOUT);
-	//QEQueue_init(&me->deferredEvtQueue, (QEvt const**)(me->deferredEvtSto), Q_DIM(me->deferredEvtSto));
+	QEQueue_init(&me->deferredEvtQueue, (QEvt const**)(me->deferredEvtSto), Q_DIM(me->deferredEvtSto));
 
 	return;
 }
@@ -85,15 +86,23 @@ static QState Console_transfer(Console_Tx *me, QEvt const *e)
 			break;
 		}
 		case Q_INIT_SIG: {
-			state = Q_TRAN(&Console_tx_menu);
+			state = Q_TRAN(&Console_tx_idle);
 			break;
 		}
+
 		case CONSOLE_TX_MENU: {
-			state = Q_TRAN(&Console_tx_menu);
+			if (QEQueue_getNFree(&me->deferredEvtQueue) > 0) {
+				QActive_defer(&me->super, &me->deferredEvtQueue, e);
+			}
+			state = Q_HANDLED();
 			break;
 		}
 		case CONSOLE_TX_MSG: {
-			state = Q_TRAN(&Console_tx_msg);
+			if (QEQueue_getNFree(&me->deferredEvtQueue) > 0) {
+				QActive_defer(&me->super, &me->deferredEvtQueue, e);
+			}
+			state = Q_HANDLED();
+			break;
 		}
 		default: {
 			state = Q_SUPER(&QHsm_top);
@@ -107,12 +116,14 @@ static QState Console_transfer(Console_Tx *me, QEvt const *e)
 static QState Console_tx_idle(Console_Tx *me, QEvt const *e)
 {
 	QState state;
-	ConsoleTxEvent *TxEvent = (ConsoleTxEvent*)e;
+	ConsoleTxEvent const *TxEvent = (ConsoleTxEvent*)e;
 	console_status_t console_state;
+	menuItem = me->firstMenuMsgItem;
 
 	switch (e->sig) {
 		case Q_ENTRY_SIG: {
-			Console_WriteBlocking(Console_ConfigPtr, ErrorText, strlen(ErrorText));
+			Console_WriteBlocking(Console_ConfigPtr, InfoText_1, strlen(InfoText_1));
+			TxEvent = (ConsoleTxEvent*)QActive_recall((QActive*)me, &me->deferredEvtQueue);
 			state = Q_HANDLED();
 			break;
 		}
@@ -127,7 +138,14 @@ static QState Console_tx_idle(Console_Tx *me, QEvt const *e)
 			else
 				state = Q_TRAN(&Console_tx_msg);
 			break;
-
+		}
+		case CONSOLE_TX_MENU: {
+			console_state = Console_TransferWriteNonBlocking(Console_ConfigPtr, Console_Tx_HandlePtr, menuItem->MenuText, strlen(menuItem->MenuText));
+			if (console_state != status_Console_OKState)
+				state = Q_TRAN(&Console_tx_error);
+			else
+				state = Q_TRAN(&Console_tx_menu);
+			break;
 		}
 		default: {
 			state = Q_SUPER(&Console_transfer);
@@ -141,12 +159,10 @@ static QState Console_tx_idle(Console_Tx *me, QEvt const *e)
 static QState Console_tx_menu(Console_Tx *me, QEvt const *e)
 {
 	QState state;
-	MenuMsgItem *menuItem = me->firstMenuMsgItem;
 	console_status_t console_state;
 
 	switch (e->sig) {
 		case Q_ENTRY_SIG: {
-			console_state = Console_TransferWriteNonBlocking(Console_ConfigPtr, Console_Tx_HandlePtr, menuItem->MenuText, strlen(menuItem->MenuText));
 			state = Q_HANDLED();
 			break;
 		}
@@ -156,7 +172,6 @@ static QState Console_tx_menu(Console_Tx *me, QEvt const *e)
 		}
 		case CONSOLE_TX_DONE: {
 			menuItem = menuItem->nextMenuMsgItem;
-			me->firstMenuMsgItem = menuItem;
 			if (menuItem != NULL) {
 				console_state = Console_TransferWriteNonBlocking(Console_ConfigPtr, Console_Tx_HandlePtr, menuItem->MenuText, strlen(menuItem->MenuText));
 				if (console_state != status_Console_OKState)
@@ -185,7 +200,6 @@ static QState Console_tx_msg(Console_Tx *me, QEvt const *e)
 
 	switch (e->sig) {
 		case Q_ENTRY_SIG: {
-
 			state = Q_HANDLED();
 			break;
 		}
@@ -199,6 +213,7 @@ static QState Console_tx_msg(Console_Tx *me, QEvt const *e)
 		}
 		default: {
 			state = Q_SUPER(&Console_transfer);
+			break;
 		}
 	}
 	return state;

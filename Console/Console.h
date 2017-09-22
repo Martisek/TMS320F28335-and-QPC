@@ -45,10 +45,9 @@ struct Console_Tx
 	QActive super;
 	QTimeEvt timeEvt;
 	MenuMsgItem *firstMenuMsgItem;
+	QEQueue deferredEvtQueue;
+	QEvt *deferredEvtSto[20];
 
-	//QEQueue deferredEvtQueue;
-	//QEvt *deferredEvtSto[20];
-	//char RxBuffer[20];
 };
 
 /*< Active object struct for console Rx >*/

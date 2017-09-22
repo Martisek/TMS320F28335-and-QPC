@@ -41,11 +41,12 @@ size_t rcBytes;
 
 int strl;
 QEvt TxDoneEvent = {CONSOLE_TX_DONE, 0, 0};
+QEvt TxMenuGoEvt = {CONSOLE_TX_MENU, 0, 0};
 
 void main(void)
 {
-	static QEvt const *l_blinkySto[10];
-	static QEvt const *l_consoleSto[10];
+	static QEvt const *l_blinkySto[15];
+	static QEvt const *l_consoleSto[15];
 
 	console_status_t Console_state;
 	char indata;
@@ -162,6 +163,8 @@ void main(void)
    ConsoleTxCtor();
    QActive_start(AO_Blinky,    2, l_blinkySto,  Q_DIM(l_blinkySto),  (void*)0, 0, (QEvt*)0);
    QActive_start(AO_ConsoleTx, 1, l_consoleSto, Q_DIM(l_consoleSto), (void*)0, 0, (QEvt*)0);
+
+   QActive_postFIFO(AO_ConsoleTx, &TxMenuGoEvt);
 
    (void)QF_run();
 
