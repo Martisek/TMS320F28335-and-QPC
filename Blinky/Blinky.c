@@ -28,6 +28,9 @@ static QState Blinky_Off(Blinky *me, QEvt *e);
 
 void BlinkyCtor(void);
 
+ConsoleTxEvent txEvent;
+char TextMsg2Send[] = "\nMSG from TMS320F28335... :-) \n";
+
 /********************************************************/
 
 void BlinkyCtor(void)
@@ -50,6 +53,8 @@ static QState Blinky_init(Blinky *me, QEvt *e)
 static QState Blinky_On(Blinky *me, QEvt *e)
 {
     QState state;
+    txEvent.super.sig = CONSOLE_TX_MSG;
+    txEvent.textstring = TextMsg2Send;
 
     switch(e->sig){
         case Q_ENTRY_SIG: {
@@ -66,8 +71,10 @@ static QState Blinky_On(Blinky *me, QEvt *e)
 
         case TIME_OUT_SIG: {
             me->countTimer--;
-            if (me->countTimer == 0)
+            if (me->countTimer == 0) {
+            	QActive_postFIFO(AO_ConsoleTx, (QEvt*)&txEvent);
                 state = Q_TRAN(&Blinky_Off);
+            }
             else
                 state = Q_HANDLED();
             break;

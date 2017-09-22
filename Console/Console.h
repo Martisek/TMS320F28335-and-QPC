@@ -17,6 +17,8 @@ typedef struct MenuMsgItem MenuMsgItem;
 typedef struct Console_Tx Console_Tx;
 typedef struct Console_Rx Console_Rx;
 
+typedef struct ConsoleTxEvent ConsoleTxEvent;
+
 enum ConsoleSig
 {
     CONSOLE_DUMMY_SIG 	= Q_USER_SIG,
@@ -58,6 +60,13 @@ struct Console_Rx
 	QEvt *deferredEvtSto[20];
 	char RxBuffer[20];
 };
+
+struct ConsoleTxEvent
+{
+	QEvt super;
+	char *textstring;
+};
+
 
 /*-----------------------------------------------------------------------------------------------*/
 

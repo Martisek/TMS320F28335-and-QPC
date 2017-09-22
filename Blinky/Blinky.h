@@ -10,8 +10,9 @@
 
 #include "bsp.h"
 #include "qp_port.h"
+#include "Console.h"
 
-#define TICK_NUMBER 2
+#define TICK_NUMBER 5
 
 typedef enum BlinkySig BlinkySig;
 

@@ -43,11 +43,11 @@ Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLE
 Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qs_dummy.h
 Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Blinky/Blinky.h
 Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Blinky/bsp.h
+Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console.h
 Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console_BSP.h
 Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdint.h
 Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h
 Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdbool.h
-Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console.h
 
 ../Example_2833xLEDBlink.c: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 
@@ -92,8 +92,8 @@ C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qassert.h
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qs_dummy.h: 
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Blinky/Blinky.h: 
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Blinky/bsp.h: 
+C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console.h: 
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console_BSP.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdint.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdbool.h: 
-C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console.h: 

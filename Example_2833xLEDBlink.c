@@ -40,6 +40,7 @@ char ConsoleRecData[30];
 size_t rcBytes;
 
 int strl;
+QEvt TxDoneEvent = {CONSOLE_TX_DONE, 0, 0};
 
 void main(void)
 {
@@ -187,9 +188,9 @@ __interrupt void cpu_timer0_isr(void)
 void ConsoleTxDone(console_handle_tx_t *handle, void *UserData)
 {
 	(void*)handle;
-	QEvt TxEvent = {CONSOLE_TX_DONE, 0, 0};
 
-	QActive_postFIFO(AO_ConsoleTx, &TxEvent);
+
+	QActive_postFIFO(AO_ConsoleTx, &TxDoneEvent);
 
 	return;
 }

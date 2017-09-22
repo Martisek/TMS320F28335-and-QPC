@@ -107,6 +107,8 @@ static QState Console_transfer(Console_Tx *me, QEvt const *e)
 static QState Console_tx_idle(Console_Tx *me, QEvt const *e)
 {
 	QState state;
+	ConsoleTxEvent *TxEvent = (ConsoleTxEvent*)e;
+	console_status_t console_state;
 
 	switch (e->sig) {
 		case Q_ENTRY_SIG: {
@@ -117,6 +119,15 @@ static QState Console_tx_idle(Console_Tx *me, QEvt const *e)
 		case Q_EXIT_SIG: {
 			state = Q_HANDLED();
 			break;
+		}
+		case CONSOLE_TX_MSG: {
+			console_state = Console_TransferWriteNonBlocking(Console_ConfigPtr, Console_Tx_HandlePtr, TxEvent->textstring, strlen(TxEvent->textstring));
+			if (console_state != status_Console_OKState)
+				state = Q_TRAN(&Console_tx_error);
+			else
+				state = Q_TRAN(&Console_tx_msg);
+			break;
+
 		}
 		default: {
 			state = Q_SUPER(&Console_transfer);
@@ -170,10 +181,11 @@ static QState Console_tx_menu(Console_Tx *me, QEvt const *e)
 static QState Console_tx_msg(Console_Tx *me, QEvt const *e)
 {
 	QState state;
+	ConsoleTxEvent *TxEvent = (ConsoleTxEvent*)e;
 
 	switch (e->sig) {
 		case Q_ENTRY_SIG: {
-			//console_state = Console_TransferWriteNonBlocking(Console_ConfigPtr, Console_Tx_HandlePtr, menuItem->MenuText, strlen(menuItem->MenuText));
+
 			state = Q_HANDLED();
 			break;
 		}
@@ -189,6 +201,28 @@ static QState Console_tx_msg(Console_Tx *me, QEvt const *e)
 			state = Q_SUPER(&Console_transfer);
 		}
 	}
+	return state;
+}
+
+static QState Console_tx_error(Console_Tx *me, QEvt const *e)
+{
+	QState state;
+
+	switch(e->sig) {
+		case Q_ENTRY_SIG: {
+			state = Q_HANDLED();
+			break;
+		}
+		case Q_EXIT_SIG: {
+			state = Q_HANDLED();
+			break;
+		}
+		default: {
+			state = Q_SUPER(&Console_transfer);
+			break;
+		}
+	}
+
 	return state;
 }
 
