@@ -47,6 +47,7 @@ void main(void)
 {
 	static QEvt const *l_blinkySto[15];
 	static QEvt const *l_consoleSto[15];
+	static ConsoleTxEvent smallPoolSto[10];
 
 	console_status_t Console_state;
 	char indata;
@@ -161,6 +162,9 @@ void main(void)
 
    BlinkyCtor();
    ConsoleTxCtor();
+
+   QF_poolInit(smallPoolSto, sizeof(smallPoolSto), sizeof(smallPoolSto[0]));
+
    QActive_start(AO_Blinky,    2, l_blinkySto,  Q_DIM(l_blinkySto),  (void*)0, 0, (QEvt*)0);
    QActive_start(AO_ConsoleTx, 1, l_consoleSto, Q_DIM(l_consoleSto), (void*)0, 0, (QEvt*)0);
 
