@@ -442,7 +442,8 @@ __interrupt void ConsoleReceivingISR(void)
 
 		}
 
-		if (Console_Rx_Handle.nchar >= Console_Rx_Handle.rxDataSize) {
+		if (Console_Rx_Handle.nchar >= Console_Rx_Handle.rxDataSize-1) {
+			Console_Rx_Handle.rxData[Console_Rx_Handle.nchar] = '/0';
 			Console_Rx_Handle.rxstate = status_Console_RxIdle;
 			CpuTimer2Regs.TCR.bit.TSS = 1;		// Stop timer
 			SciaRegs.SCIFFRX.bit.RXFFIENA = 0;	// Stop receiving
@@ -462,6 +463,8 @@ __interrupt void ConsoleRxTimeoutISR(void)
 {
 	SciaRegs.SCIFFRX.bit.RXFFIENA = 0;
 	ReceivingDone = 111;
+
+	Console_Rx_Handle.rxData[Console_Rx_Handle.nchar] = '/0';
 
 	(Console_Rx_Handle.consoleRxCallBackFci)(Console_Rx_HandlePtr, Console_Rx_HandlePtr->userRxData);
 

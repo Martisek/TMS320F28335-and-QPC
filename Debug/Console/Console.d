@@ -45,6 +45,11 @@ Console/Console.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink
 Console/Console.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qf.h
 Console/Console.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qassert.h
 Console/Console.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qs_dummy.h
+Console/Console.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdio.h
+Console/Console.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdarg.h
+Console/Console.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlib.h
+Console/Console.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlibf.h
+Console/Console.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h
 
 ../Console/Console.c: 
 ../Console/Console.h: 
@@ -91,3 +96,8 @@ C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qpset.h:
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qf.h: 
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qassert.h: 
 C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/QP_include/qs_dummy.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdio.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlibf.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 

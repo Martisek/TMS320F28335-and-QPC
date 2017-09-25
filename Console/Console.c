@@ -19,7 +19,7 @@ char TextMenu_1[] = "1. Menu       	     \n";
 char TextMenu_2[] = "2. Enable injector  \n";
 char TextMenu_3[] = "3. Disable injector \n";
 char TextMenu_4[] = "4. Parameters       \n";
-char TextMenu_5[] = "5. Variables        \n";
+char TextMenu_5[] = "5. Write something> \n";
 
 MenuMsgItem MenuMsgItem_5 = {TextMenu_5, NULL           };
 MenuMsgItem MenuMsgItem_4 = {TextMenu_4, &MenuMsgItem_5 };
@@ -31,6 +31,8 @@ char InfoText_1[] = "\nStav Tx IDLE!!\n";
 
 MenuMsgItem *menuPtr = &MenuMsgItem_1;
 MenuMsgItem *menuItem;
+
+static char ReceiveString[15];
 
 /*-----------------------------------------------------------------------------------------------*/
 /*< Function prototypes >*/
@@ -48,9 +50,10 @@ static QState Console_tx_error(Console_Tx *me, QEvt const *e);
 /*< Static function for RX active object >*/
 static QState Console_rx_init(Console_Rx *me, QEvt const *e);
 static QState Console_receive(Console_Rx *me, QEvt const *e);
-static QState Console_rx_parsing(Console_Rx *me, QEvt const *e);
+//static QState Console_rx_parsing(Console_Rx *me, QEvt const *e);
 static QState Console_rx_idle(Console_Rx *me, QEvt const *e);
-static QState Console_rx_error(Console_Rx *me, QEvt const *e);
+//static QState Console_rx_error(Console_Rx *me, QEvt const *e);
+//static QState Console_rx_waiting(Console_Rx *me, QEvt const *e);
 
 /*-----------------------------------------------------------------------------------------------*/
 /*																								 */
@@ -241,16 +244,59 @@ static QState Console_tx_error(Console_Tx *me, QEvt const *e)
 	return state;
 }
 
+/*************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------*/
 /*																								 */
 /*< Functions for Rx part (active object) >*/
+void ConsoleRxCtor(void)
+{
+	Console_Rx *me = &ConsoleObjectRx;
+	QActive_ctor(&me->super, Q_STATE_CAST(&Console_rx_init));
+	QTimeEvt_ctor(&me->timeEvt, CONSOLE_RX_TMOUT);
+
+	return;
+}
 static QState Console_rx_init(Console_Rx *me, QEvt const *e)
 {
 	(void)e;
-	return Q_TRAN(&Console_receive);
+	me->RxBuffer = ReceiveString;
+	memset(me->RxBuffer, 0, 15);
+	return Q_TRAN(&Console_rx_idle);
 }
 
 static QState Console_receive(Console_Rx *me, QEvt const *e)
+{
+	QState state;
+	console_status_t rx_state;
+
+	switch (e->sig) {
+		case Q_ENTRY_SIG: {
+			// TO DO: globalni timeout pro prijem
+			rx_state = Console_TransferReadNonBlocking(Console_ConfigPtr, Console_Rx_HandlePtr, me->RxBuffer, strlen(me->RxBuffer), &me->numRxWords, 10);
+			state = Q_HANDLED();
+			break;
+		}
+		case Q_EXIT_SIG: {
+			state = Q_HANDLED();
+			break;
+		}
+		case CONSOLE_RX_DONE: {
+			ConsoleTxEvent *txEvtDynamic1 = Q_NEW(ConsoleTxEvent, CONSOLE_TX_MSG);	// Dynamic allocated event
+			txEvtDynamic1->textstring = me->RxBuffer;
+			QActive_postFIFO(AO_ConsoleTx, (QEvt*)txEvtDynamic1);
+			state = Q_HANDLED();
+			break;
+		}
+		default: {
+			state = Q_SUPER(&QHsm_top);
+			break;
+		}
+	}
+
+	return state;
+}
+
+static QState Console_rx_idle(Console_Rx *me, QEvt const *e)
 {
 	QState state;
 
@@ -263,8 +309,8 @@ static QState Console_receive(Console_Rx *me, QEvt const *e)
 			state = Q_HANDLED();
 			break;
 		}
-		case Q_INIT_SIG: {
-			state = Q_TRAN(&Console_rx_idle);
+		case CONSOLE_RX_MSG: {
+			state = Q_TRAN(&Console_receive);
 			break;
 		}
 		default: {
@@ -272,22 +318,7 @@ static QState Console_receive(Console_Rx *me, QEvt const *e)
 			break;
 		}
 	}
-
 	return state;
-}
-
-static QState Console_rx_parsing(Console_Rx *me, QEvt const *e)
-{
-	(void)e;
-
-	return Q_HANDLED();
-}
-
-static QState Console_rx_idle(Console_Rx *me, QEvt const *e)
-{
-	(void)e;
-
-	return Q_HANDLED();
 }
 
 /*************************************************************************************************/

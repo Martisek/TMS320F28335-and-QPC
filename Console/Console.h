@@ -10,6 +10,9 @@
 
 #include "Console_BSP.h"
 #include "qp_port.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef enum ConsoleSig ConsoleSig;
 typedef struct MenuMsgItem MenuMsgItem;
@@ -30,6 +33,7 @@ enum ConsoleSig
 	CONSOLE_RX_DONE		= Q_USER_SIG + 25,
 	CONSOLE_RX_ERROR	= Q_USER_SIG + 26,
 	CONSOLE_RX_PARSED	= Q_USER_SIG + 27,
+	CONSOLE_RX_TMOUT    = Q_USER_SIG + 28,
 };
 
 
@@ -55,9 +59,10 @@ struct Console_Rx
 {
 	QActive super;
 	QTimeEvt timeEvt;
-	QEQueue deferredEvtQueue;
-	QEvt *deferredEvtSto[20];
-	char RxBuffer[20];
+	//QEQueue deferredEvtQueue;
+	//QEvt *deferredEvtSto[20];
+	char *RxBuffer;
+	size_t numRxWords;
 };
 
 struct ConsoleTxEvent

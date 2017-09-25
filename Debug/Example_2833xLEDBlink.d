@@ -48,6 +48,11 @@ Example_2833xLEDBlink.obj: C:/Users/martisek/Desktop/TI_projects/Example_2833xLE
 Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdint.h
 Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h
 Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdbool.h
+Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdio.h
+Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdarg.h
+Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlib.h
+Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlibf.h
+Example_2833xLEDBlink.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h
 
 ../Example_2833xLEDBlink.c: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 
@@ -97,3 +102,8 @@ C:/Users/martisek/Desktop/TI_projects/Example_2833xLEDBlink/Console/Console_BSP.
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdint.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdbool.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdio.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlibf.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 

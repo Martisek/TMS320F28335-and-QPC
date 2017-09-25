@@ -28,11 +28,12 @@ static QState Blinky_Off(Blinky *me, QEvt *e);
 
 void BlinkyCtor(void);
 
-ConsoleTxEvent txEvent;
+
 char TextMsg2Send1[] = "\nMSG from TMS320F28335... :-) \n";
 char TextMsg2Send2[] = "\nHello TI TMS320F28335... ;-) \n";
 
-QEvt const menuEvt = {CONSOLE_TX_MENU, 0, 0};
+QEvt const menuEvt = {CONSOLE_TX_MENU, 0, 0};	// static, immutable event (see "const"!!)
+ConsoleTxEvent const txEvent = {{CONSOLE_TX_MSG, 0, 0},  TextMsg2Send2};
 
 /********************************************************/
 
@@ -48,7 +49,6 @@ void BlinkyCtor(void)
 static QState Blinky_init(Blinky *me, QEvt *e)
 {
     me->countTimer = TICK_NUMBER;
-    //QTimeEvt_arm_(&me->timeEvt, &me->super, BSP_TICKS_PER_SEC);
     QTimeEvt_postEvery(&me->timeEvt, (QActive *)me, BSP_TICKS_PER_SEC);
     return Q_TRAN(&Blinky_Off);
 }
@@ -56,7 +56,6 @@ static QState Blinky_init(Blinky *me, QEvt *e)
 static QState Blinky_On(Blinky *me, QEvt *e)
 {
     QState state;
-
 
     switch(e->sig){
         case Q_ENTRY_SIG: {
@@ -74,10 +73,6 @@ static QState Blinky_On(Blinky *me, QEvt *e)
         case TIME_OUT_SIG: {
             me->countTimer--;
             if (me->countTimer == 0) {
-            	ConsoleTxEvent *txEvtDynamic1 = Q_NEW(ConsoleTxEvent, CONSOLE_TX_MSG);
-            	txEvtDynamic1->textstring = TextMsg2Send1;
-            	QActive_postFIFO(AO_ConsoleTx, (QEvt*)txEvtDynamic1);
-            	QActive_postFIFO(AO_ConsoleTx, &menuEvt);
                 state = Q_TRAN(&Blinky_Off);
             }
             else
@@ -96,8 +91,6 @@ static QState Blinky_On(Blinky *me, QEvt *e)
 static QState Blinky_Off(Blinky *me, QEvt *e)
 {
     QState state;
-    txEvent.super.sig = CONSOLE_TX_MSG;
-    txEvent.textstring = TextMsg2Send2;
 
     switch(e->sig){
         case Q_ENTRY_SIG: {
@@ -115,7 +108,7 @@ static QState Blinky_Off(Blinky *me, QEvt *e)
         case TIME_OUT_SIG: {
             me->countTimer--;
             if (me->countTimer == 0) {
-            	QActive_postFIFO(AO_ConsoleTx, (QEvt*)&txEvent);
+            	//QActive_postFIFO(AO_ConsoleTx, (QEvt*)&txEvent);
                 state = Q_TRAN(&Blinky_On);
             }
             else

@@ -47,6 +47,11 @@ Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdint.h
 Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h
 Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/linkage.h
 Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdbool.h
+Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdio.h
+Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdarg.h
+Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlib.h
+Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlibf.h
+Blinky/Blinky.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h
 
 ../Blinky/Blinky.c: 
 ../Blinky/blinky.h: 
@@ -95,3 +100,8 @@ C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdint.h:
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/linkage.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdbool.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdio.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/stdlibf.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/string.h: 
