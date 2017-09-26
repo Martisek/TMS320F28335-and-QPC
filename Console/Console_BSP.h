@@ -31,6 +31,7 @@ typedef struct console_handle_tx console_handle_tx_t;
 typedef struct console_handle_rx console_handle_rx_t;
 typedef struct console_config console_config_t;
 typedef struct console_flags console_flags_t;
+typedef struct console_rx_flags console_rx_flags_t;
 typedef enum console_status console_status_t;
 typedef enum console_parity_mode console_parity_mode_t;
 typedef enum console_stop_bit_count console_stop_bit_count_t;
@@ -81,10 +82,21 @@ enum console_status
 	status_Console_HandlePassingError	= MAKE_STATUS(StatusGroup_Console, 14),
 };
 
+struct console_rx_flags
+{
+	unsigned console_Rx_sumErr					: 	1;
+	unsigned console_Rx_overrunErr				:	1;
+	unsigned console_Rx_framingErr				:	1;
+	unsigned console_Rx_parityErr				:	1;
+	unsigned console_Rx_dataRegFull				:	1;
+};
+
 
 /*! Tx handle struct */
 struct console_handle_tx
 {
+	volatile struct SCI_REGS *sciReg;
+
 	volatile char *txData;
 	volatile size_t txDataSize;
 	volatile size_t nchar;
@@ -100,6 +112,7 @@ struct console_handle_tx
 /*! Rx handle struct */
 struct console_handle_rx
 {
+	volatile struct SCI_REGS *sciReg;
 	volatile char *rxData;
 	volatile size_t rxDataSize;
 	//volatile QEQueue rxQueue;
@@ -111,6 +124,8 @@ struct console_handle_rx
 
 	console_transfer_callback_tx_t consoleRxCallBackFci;
 	void *userRxData;
+
+	console_rx_flags_t rxStateFlags;
 
 	volatile uint16_t rxstate;
 };
@@ -144,6 +159,9 @@ struct console_flags
     unsigned console_TxInProcessFlag			:   1;
     unsigned console_RxInProcessFlag			: 	1;
 };
+
+
+
 
 
 /*---------------------------------------------------------------------------------------------------------*/

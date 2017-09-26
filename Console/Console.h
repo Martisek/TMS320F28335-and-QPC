@@ -46,11 +46,11 @@ struct MenuMsgItem
 /*< Active object struct for console Tx >*/
 struct Console_Tx
 {
-	QActive super;
-	QTimeEvt timeEvt;
-	MenuMsgItem *firstMenuMsgItem;
-	QEQueue deferredEvtQueue;
-	QEvt *deferredEvtSto[20];
+	QActive super;					/*< Active object class >*/
+	QTimeEvt timeEvt;				/*< Time event - timeout for sending all data >*/
+	MenuMsgItem *firstMenuMsgItem;	/*< Pointer to first menu item >*/
+	QEQueue deferredEvtQueue; 		/*< Thread-safe queue object for event deferring >*/
+	QEvt *deferredEvtSto[20];		/*< Actual queue for queue object >*/
 
 };
 

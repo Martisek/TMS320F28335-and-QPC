@@ -66,18 +66,18 @@ void Q_onAssert(char const Q_ROM * const Q_ROM_VAR file, int line)
 
 /*..........................................................................*/
 void QF_onStartup(void) {
+	CpuTimer0Regs.TCR.bit.TSS = 0;     /* start the system clock tick timer */
 
+	// Enable CPU INT1, which is connected to CPU-Timer 0:
+	IER |= M_INT1;
 
-    CpuTimer0Regs.TCR.bit.TSS = 0;     /* start the system clock tick timer */
+	// Enable PIE: Group 1 interrupt 7 which is connected to CPU-Timer 0:
+	PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
 
-    // Enable CPU INT1, which is connected to CPU-Timer 0:
-    IER |= M_INT1;
+	// Enable higher priority real-time debug events:
+	ERTM;   // Enable Global realtime interrupt DBGM
 
-    // Enable PIE: Group 1 interrupt 7 which is connected to CPU-Timer 0:
-    PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
-
-    // Enable higher priority real-time debug events:
-    ERTM;   // Enable Global realtime interrupt DBGM
+	return;
 }
 /*..........................................................................*/
 void QF_onCleanup(void) {                               /* nothing to clear */
@@ -105,6 +105,7 @@ void QF_onIdle(void) {
 
     QF_INT_ENABLE();                        /* always unlock the interrupts */
 }
+
 
 
 
